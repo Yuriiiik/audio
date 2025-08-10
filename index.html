@@ -1,88 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+<html lang="ru">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Минималистичный плеер</title>
+  <style>
+    :root { --btn-size: 56px; }
+    html, body { height: 100%; margin: 0; background: transparent; }
+    body { display: flex; align-items: center; justify-content: center; font-family: sans-serif; }
+    .player { display: flex; gap: 12px; align-items: center; background: transparent; }
+    button.play {
+      width: var(--btn-size); height: var(--btn-size);
+      border-radius: 50%; border: 2px solid rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.05); display: grid; place-items: center;
+      color: #000; cursor: pointer;
+    }
+    button.play:active { transform: scale(.98); }
+    .vol { width: 120px; }
+    svg { width: 22px; height: 22px; }
+    @media (max-width: 420px) { .vol { width: 88px; } }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!doctype html&gt;</p>
-<p class="p1">&lt;html lang="ru"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Минималистичный плеер на GitHub Pages&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root{--btn-size:56px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>html,body{height:100%;margin:0;background:#222}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body{display:flex;align-items:center;justify-content:center;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.player{display:flex;gap:12px;align-items:center;background:transparent}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button.play{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width:var(--btn-size);height:var(--btn-size);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:50%;border:2px solid rgba(255,255,255,0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:rgba(255,255,255,0.04);display:grid;place-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#fff;cursor:pointer</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button.play:active{transform:scale(.98)}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.vol{width:120px;accent-color: white}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>svg{width:22px;height:22px}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width:420px){.vol{width:88px}}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="player" role="region" aria-label="Минималистичный аудио плеер"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="play" id="playBtn" aria-pressed="false" title="Play / Stop"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;svg id="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;path d="M5 3v18l15-9L5 3z"&gt;&lt;/path&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input id="vol" class="vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Громкость" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;audio id="audio" crossorigin="anonymous" src="untitled_.mp3"&gt;&lt;/audio&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const audio = document.getElementById('audio');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const playBtn = document.getElementById('playBtn');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const icon = document.getElementById('icon');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const vol = document.getElementById('vol');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>playBtn.addEventListener('click', async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(audio.paused){</p>
-<p class="p1"><span class="Apple-converted-space">          </span>await audio.play();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>playBtn.setAttribute('aria-pressed','true');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>icon.innerHTML = '&lt;path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"&gt;&lt;/path&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>audio.pause();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>playBtn.setAttribute('aria-pressed','false');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>icon.innerHTML = '&lt;path d="M5 3v18l15-9L5 3z"&gt;&lt;/path&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} catch(err){</p>
-<p class="p1"><span class="Apple-converted-space">        </span>console.warn('Playback error', err);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>vol.addEventListener('input', ()=&gt;{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>audio.volume = parseFloat(vol.value);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>audio.addEventListener('play', ()=&gt;{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>playBtn.setAttribute('aria-pressed','true');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>icon.innerHTML = '&lt;path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"&gt;&lt;/path&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>audio.addEventListener('pause', ()=&gt;{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>playBtn.setAttribute('aria-pressed','false');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>icon.innerHTML = '&lt;path d="M5 3v18l15-9L5 3z"&gt;&lt;/path&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <div class="player" role="region" aria-label="Минималистичный аудио плеер">
+    <button class="play" id="playBtn" aria-pressed="false" title="Play / Stop">
+      <svg id="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 3v18l15-9L5 3z"></path>
+      </svg>
+    </button>
+    <input id="vol" class="vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Громкость" />
+  </div>
+
+  <!-- mp3 берём прямо из репозитория -->
+  <audio id="audio" src="untitled_.mp3"></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+    const icon = document.getElementById('icon');
+    const vol = document.getElementById('vol');
+
+    playBtn.addEventListener('click', async () => {
+      try {
+        if (audio.paused) {
+          await audio.play();
+          playBtn.setAttribute('aria-pressed', 'true');
+          icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>';
+        } else {
+          audio.pause();
+          playBtn.setAttribute('aria-pressed', 'false');
+          icon.innerHTML = '<path d="M5 3v18l15-9L5 3z"></path>';
+        }
+      } catch (err) {
+        console.warn('Playback error', err);
+      }
+    });
+
+    vol.addEventListener('input', () => {
+      audio.volume = parseFloat(vol.value);
+    });
+
+    audio.addEventListener('play', () => {
+      playBtn.setAttribute('aria-pressed', 'true');
+      icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>';
+    });
+    audio.addEventListener('pause', () => {
+      playBtn.setAttribute('aria-pressed', 'false');
+      icon.innerHTML = '<path d="M5 3v18l15-9L5 3z"></path>';
+    });
+  </script>
 </body>
 </html>
